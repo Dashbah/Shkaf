@@ -54,8 +54,11 @@ public class SecurityConfig {
     @Bean
     protected DefaultSecurityFilterChain configureHttpSecurity(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(requestMatcherRegistry -> {
-                    requestMatcherRegistry.requestMatchers("users/new")
-                            .hasAuthority(Role.ADMIN.name()).anyRequest().permitAll();
+                    requestMatcherRegistry
+                            .requestMatchers("/users").hasAnyAuthority(Role.ADMIN.name(), Role.MANAGER.name())
+                            .requestMatchers("/users/new").hasAuthority(Role.ADMIN.name())
+                            .anyRequest()
+                            .permitAll();
                 });
         http.formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
                 .loginPage("/login")
