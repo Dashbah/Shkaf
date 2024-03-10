@@ -19,6 +19,11 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping
+    public String userList(Model model) {
+        model.addAttribute("users", userService.getAll());
+        return "userList";
+    }
     @GetMapping("/new")
     public String newUser(Model model) {
         model.addAttribute("user", new UserDTO());
@@ -26,9 +31,9 @@ public class UserController {
     }
 
     @PostMapping("/new")
-    public String ssaveUser(UserDTO userDTO, Model model) {
+    public String saveUser(UserDTO userDTO, Model model) {
         if (userService.save(userDTO)) {
-            return "redirect:/";
+            return "redirect:/users";
         } else {
             model.addAttribute("user", userDTO);
             return "user";

@@ -57,13 +57,16 @@ public class SecurityConfig {
                     requestMatcherRegistry.requestMatchers("users/new")
                             .hasAuthority(Role.ADMIN.name()).anyRequest().permitAll();
                 });
-        http.formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer.loginPage("/login")
+        http.formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
+                .loginPage("/login")
+                .failureUrl("/login-error")
                 .loginProcessingUrl("/auth")
                 .permitAll());
         http.logout(httpSecurityLogoutConfigurer ->
                 httpSecurityLogoutConfigurer.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                         .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
                         .invalidateHttpSession(true));
+
         http.csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }
