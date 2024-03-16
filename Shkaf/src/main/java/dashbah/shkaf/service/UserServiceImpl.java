@@ -49,6 +49,34 @@ public class UserServiceImpl implements UserService{
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public User findByName(String name) {
+        return userRepository.findFirstByName(name);
+    }
+
+    @Override
+    public void updateProfile(UserDTO dto) {
+        User savedUser = userRepository.findFirstByName(dto.getUsername());
+        if (savedUser == null) {
+            throw new RuntimeException("User not found with username: " + dto.getUsername());
+        }
+
+        boolean isChanged = false;
+        if (dto.getPassword() != null && !dto.getPassword().isEmpty()) {
+            savedUser.setPassword(passwordEncoder.encode(dto.getPassword()));
+            isChanged = true;
+        }
+
+        if (!dto.getEmail().equals(savedUser.getEmail())) {
+            savedUser.setEmail(dto.getEmail());
+            isChanged = true;
+        }
+
+        if (isChanged) {
+            userRepository.save(savedUser);
+        }
+    }
+
     private UserDTO toDto(User user) {
         return UserDTO.builder()
                 .username(user.getName())
