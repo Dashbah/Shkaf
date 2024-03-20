@@ -13,15 +13,15 @@ import java.util.List;
 public interface ProductMapper {
     ProductMapper MAPPER = Mappers.getMapper(ProductMapper.class);
 
-    @Mapping(source = "dto.id", target = "id")
-    @Mapping(source = "dto.title", target = "title")
-    @Mapping(source = "dto.price", target = "price")
+//    @Mapping(source = "dto.id", target = "id")
+//    @Mapping(source = "dto.title", target = "title")
+//    @Mapping(source = "dto.price", target = "price")
     Product ProductDTOtoProduct(ProductDTO dto);
 
     @InheritInverseConfiguration
-    @Mapping(source = "product.id", target = "id")
-    @Mapping(source = "product.title", target = "title")
-    @Mapping(source = "product.price", target = "price")
+//    @Mapping(source = "product.id", target = "id")
+//    @Mapping(source = "product.title", target = "title")
+//    @Mapping(source = "product.price", target = "price")
     ProductDTO productToProductDTO(Product product);
 
     List<Product> toProductList(List<ProductDTO> productDTOS);
