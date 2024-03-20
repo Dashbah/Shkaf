@@ -16,7 +16,7 @@ public class ShkafApplication {
 		SpringApplication app = new SpringApplication(ShkafApplication.class);
 		ConfigurableApplicationContext context = app.run(args);
 		System.out.println("Application is running on port: " + context.getEnvironment().getProperty("server.port"));
-		PasswordEncoder encoder = context.getBean(PasswordEncoder.class);
-		System.out.println(encoder.encode("pass"));
+//		PasswordEncoder encoder = context.getBean(PasswordEncoder.class);
+//		System.out.println(encoder.encode("pass"));
 	}
 }

@@ -8,13 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
     @RequestMapping({"", "/"})
     public String index() {
-        System.out.println("hello from index()");
         return "index";
     }
 
     @RequestMapping("/login")
     public String login() {
-        System.out.println("hello from login()");
         return "login";
     }
 

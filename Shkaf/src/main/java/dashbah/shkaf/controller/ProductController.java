@@ -25,7 +25,6 @@ public class ProductController {
     public String list(Model model) {
         List<ProductDTO> list = productService.getAll();
         model.addAttribute("products", list);
-        // System.out.println(list);
         return "products";
     }
 
