@@ -63,7 +63,6 @@ CREATE TABLE products_categories (
 
 CREATE TABLE users (
                        is_archived BOOLEAN NOT NULL,
-                       bucket_id BIGINT UNIQUE,
                        id BIGINT NOT NULL,
                        email VARCHAR(255),
                        name VARCHAR(255),
@@ -83,4 +82,3 @@ ALTER TABLE IF EXISTS orders_details ADD CONSTRAINT fk_orders_details_details FO
 ALTER TABLE IF EXISTS orders_details ADD CONSTRAINT fk_orders_details_order FOREIGN KEY (order_id) REFERENCES orders(id);
 ALTER TABLE IF EXISTS products_categories ADD CONSTRAINT fk_products_categories_category FOREIGN KEY (category_id) REFERENCES categories(id);
 ALTER TABLE IF EXISTS products_categories ADD CONSTRAINT fk_products_categories_product FOREIGN KEY (product_id) REFERENCES products(id);
-ALTER TABLE IF EXISTS users ADD CONSTRAINT fk_users_bucket FOREIGN KEY (bucket_id) REFERENCES buckets(id);
