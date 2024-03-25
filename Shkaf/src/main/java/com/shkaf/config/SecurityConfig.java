@@ -22,24 +22,6 @@ public class SecurityConfig {
 //    private final AuthenticationProvider authenticationProvider;
     @Bean
     protected DefaultSecurityFilterChain configureHttpSecurity(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(requestMatcherRegistry -> {
-                    requestMatcherRegistry
-                            .requestMatchers("/users/new").hasAuthority("ADMIN")
-                            .requestMatchers("/users/**").authenticated() // Доступ только для аутентифицированных пользователей
-                            .requestMatchers("/bucket/**").authenticated() // Доступ только для аутентифицированных пользователей
-                            .anyRequest()
-                            .permitAll();
-                });
-        http.formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer
-                .loginPage("/login")
-                .failureUrl("/login-error")
-                .loginProcessingUrl("/login")
-                .permitAll());
-        http.logout(httpSecurityLogoutConfigurer ->
-                httpSecurityLogoutConfigurer.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/").deleteCookies("JSESSIONID")
-                        .invalidateHttpSession(true));
-
         http.csrf(AbstractHttpConfigurer::disable);
         return http.build();
     }

@@ -26,6 +26,7 @@ public class UserController {
         return ResponseEntity.ok().body(users);
     }
 
+    // ADMIN
     @PostMapping("/new")
     public ResponseEntity<String> saveUser(@RequestBody UserDTO userDTO) {
         try {
@@ -36,6 +37,8 @@ public class UserController {
         }
     }
 
+    // ADMIN, MANAGER
+    // CLIENT for themselves
     @GetMapping("/{userName}")
     public ResponseEntity<UserDTO> profileUser(@PathVariable String userName) {
         var user = userService.findByName(userName).orElse(null);
@@ -49,6 +52,8 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
     }
 
+    // ADMIN, MANAGER
+    // CLIENT for themselves
     @PutMapping
     public ResponseEntity<String> updateProfileUser(@RequestBody UserDTO dto) {
         if (dto.getPassword() != null && !dto.getPassword().isEmpty() && dto.getPassword().equals(dto.getMatchingPassword())) {
@@ -61,5 +66,13 @@ public class UserController {
         } else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Passwords don't match");
         }
+    }
+
+    // DELETE ACCOUNT
+    // ADMIN, MANAGER
+    // CLIENT for themselves
+    @DeleteMapping
+    public ResponseEntity<String> deleteUser(@RequestBody UserDTO userDTO) {
+        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).build();
     }
 }
